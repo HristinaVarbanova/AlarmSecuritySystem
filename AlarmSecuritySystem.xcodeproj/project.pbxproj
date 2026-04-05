@@ -6,13 +6,34 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8EE577902F82857200421E08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EE5778F2F82857200421E08 /* GoogleService-Info.plist */; };
+		8EE577932F828A5900421E08 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8EE577922F828A5900421E08 /* FirebaseAuth */; };
+		8EE577952F828A5900421E08 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8EE577942F828A5900421E08 /* FirebaseFirestore */; };
+		8EE577972F828A5900421E08 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8EE577962F828A5900421E08 /* FirebaseMessaging */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		8EE5778F2F82857200421E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8EE9E2052F65EFA700735A7E /* AlarmSecuritySystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlarmSecuritySystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8EE5779A2F82ED4C00421E08 /* Exceptions for "AlarmSecuritySystem" folder in "AlarmSecuritySystem" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Untitled.swift,
+			);
+			target = 8EE9E2042F65EFA700735A7E /* AlarmSecuritySystem */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8EE9E2072F65EFA700735A7E /* AlarmSecuritySystem */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8EE5779A2F82ED4C00421E08 /* Exceptions for "AlarmSecuritySystem" folder in "AlarmSecuritySystem" target */,
+			);
 			path = AlarmSecuritySystem;
 			sourceTree = "<group>";
 		};
@@ -23,17 +44,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EE577972F828A5900421E08 /* FirebaseMessaging in Frameworks */,
+				8EE577932F828A5900421E08 /* FirebaseAuth in Frameworks */,
+				8EE577952F828A5900421E08 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8EE577982F82ED1B00421E08 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				8EE9E2072F65EFA700735A7E /* AlarmSecuritySystem */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		8EE9E1FC2F65EFA700735A7E = {
 			isa = PBXGroup;
 			children = (
 				8EE9E21E2F65F27500735A7E /* New Group */,
 				8EE9E2062F65EFA700735A7E /* Products */,
+				8EE5778F2F82857200421E08 /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,7 +89,7 @@
 		8EE9E21F2F65F32600735A7E /* New Group */ = {
 			isa = PBXGroup;
 			children = (
-				8EE9E2072F65EFA700735A7E /* AlarmSecuritySystem */,
+				8EE577982F82ED1B00421E08 /* New Group */,
 			);
 			path = "New Group";
 			sourceTree = "<group>";
@@ -81,6 +114,9 @@
 			);
 			name = AlarmSecuritySystem;
 			packageProductDependencies = (
+				8EE577922F828A5900421E08 /* FirebaseAuth */,
+				8EE577942F828A5900421E08 /* FirebaseFirestore */,
+				8EE577962F828A5900421E08 /* FirebaseMessaging */,
 			);
 			productName = AlarmSecuritySystem;
 			productReference = 8EE9E2052F65EFA700735A7E /* AlarmSecuritySystem.app */;
@@ -110,6 +146,9 @@
 			);
 			mainGroup = 8EE9E1FC2F65EFA700735A7E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8EE577912F828A5900421E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8EE9E2062F65EFA700735A7E /* Products */;
 			projectDirPath = "";
@@ -125,6 +164,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EE577902F82857200421E08 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +384,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8EE577912F828A5900421E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8EE577922F828A5900421E08 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8EE577912F828A5900421E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		8EE577942F828A5900421E08 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8EE577912F828A5900421E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		8EE577962F828A5900421E08 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8EE577912F828A5900421E08 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8EE9E1FD2F65EFA700735A7E /* Project object */;
 }
