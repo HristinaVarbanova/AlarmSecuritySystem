@@ -1,10 +1,3 @@
-//
-//  AlarmSecuritySystemApp.swift
-//  AlarmSecuritySystem
-//
-//  Created by Hristina Varbanova on 14.03.26.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -12,9 +5,14 @@ import SwiftData
 struct AlarmSecuritySystemApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            AppUser.self,
+            EventLog.self
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        let modelConfiguration = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: false
+        )
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
@@ -25,7 +23,7 @@ struct AlarmSecuritySystemApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DatabaseTestView()
         }
         .modelContainer(sharedModelContainer)
     }
