@@ -7,7 +7,8 @@ import Observation
 class AuthViewModel {
     var errorMessage: String = ""
     var currentUserId: String?
-
+    var currentUser: FirebaseUser?
+    
     private let auth = Auth.auth()
     private let db = Firestore.firestore()
 
@@ -16,6 +17,7 @@ class AuthViewModel {
         do {
             let result = try await auth.signIn(withEmail: email, password: password)
             currentUserId = result.user.uid
+            await fetchCurrentUser()
             errorMessage = ""
             return true
         } catch {
@@ -55,5 +57,29 @@ class AuthViewModel {
     func logout() {
         try? auth.signOut()
         currentUserId = nil
+    }
+    // FETCH USER DATA FROM FIRESTORE
+    func fetchCurrentUser() async {
+        guard let uid = currentUserId else { return }
+
+        do {
+            let document = try await db.collection("users").document(uid).getDocument()
+
+            guard let data = document.data() else { return }
+
+            let user = FirebaseUser(
+                id: uid,
+                username: data["username"] as? String ?? "",
+                email: data["email"] as? String ?? "",
+                role: data["role"] as? String ?? "user",
+                isApproved: data["isApproved"] as? Bool ?? false,
+                isBlocked: data["isBlocked"] as? Bool ?? false
+            )
+
+            self.currentUser = user
+
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
 }
