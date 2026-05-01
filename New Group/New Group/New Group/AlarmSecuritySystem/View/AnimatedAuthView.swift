@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftData
 
 struct AnimatedAuthView: View {
     enum Mode {
@@ -8,16 +7,17 @@ struct AnimatedAuthView: View {
     }
 
     let viewModel: AuthViewModel
-    let users: [AppUser]
-    let modelContext: ModelContext
 
     @State private var mode: Mode = .login
 
     @State private var username = ""
+    @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
 
+    @State private var isSubmitting = false
     @FocusState private var focusedField: Field?
+
     @State private var animateLock = false
     @State private var shakeTrigger: CGFloat = 0
     @State private var showError = false
@@ -25,6 +25,7 @@ struct AnimatedAuthView: View {
 
     enum Field {
         case username
+        case email
         case password
         case confirmPassword
     }
@@ -36,10 +37,12 @@ struct AnimatedAuthView: View {
     private var isFormReady: Bool {
         switch mode {
         case .login:
-            return !username.trimmingCharacters(in: .whitespaces).isEmpty &&
+            return !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
                    !password.isEmpty
+
         case .signup:
-            return !username.trimmingCharacters(in: .whitespaces).isEmpty &&
+            return !username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+                   !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
                    !password.isEmpty &&
                    !confirmPassword.isEmpty
         }
@@ -139,12 +142,23 @@ struct AnimatedAuthView: View {
 
     private var authCard: some View {
         VStack(spacing: 16) {
+            if mode == .signup {
+                AuthTextField(
+                    title: "Username",
+                    systemImage: "person.fill",
+                    text: $username
+                )
+                .focused($focusedField, equals: .username)
+                .transition(.move(edge: .top).combined(with: .opacity))
+            }
+
             AuthTextField(
-                title: "Username",
-                systemImage: "person.fill",
-                text: $username
+                title: "Email",
+                systemImage: "envelope.fill",
+                text: $email
             )
-            .focused($focusedField, equals: .username)
+            .keyboardType(.emailAddress)
+            .focused($focusedField, equals: .email)
 
             AuthSecureField(
                 title: "Password",
@@ -172,8 +186,10 @@ struct AnimatedAuthView: View {
             }
 
             AnimatedPrimaryButton(
-                title: mode == .login ? "Log In" : "Sign Up",
-                isEnabled: isFormReady
+                title: isSubmitting
+                    ? "Please wait..."
+                    : (mode == .login ? "Log In" : "Sign Up"),
+                isEnabled: isFormReady && !isSubmitting
             ) {
                 submit()
             }
@@ -198,6 +214,7 @@ struct AnimatedAuthView: View {
                 withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
                     mode = mode == .login ? .signup : .login
                     username = ""
+                    email = ""
                     password = ""
                     confirmPassword = ""
                     focusedField = nil
@@ -213,27 +230,30 @@ struct AnimatedAuthView: View {
         focusedField = nil
 
         switch mode {
-
         case .login:
-
             guard isFormReady else {
-                triggerError("Please enter username and password.")
+                triggerError("Please enter email and password.")
                 return
             }
 
-            let success = viewModel.login(
-                username: username,
-                password: password,
-                users: users,
-                modelContext: modelContext
-            )
+            isSubmitting = true
 
-            if !success {
-                triggerError(viewModel.loginError)
+            Task {
+                let success = await viewModel.login(
+                    email: email.trimmingCharacters(in: .whitespacesAndNewlines),
+                    password: password
+                )
+
+                await MainActor.run {
+                    isSubmitting = false
+
+                    if !success {
+                        triggerError(viewModel.errorMessage)
+                    }
+                }
             }
 
         case .signup:
-
             guard isFormReady else {
                 triggerError("Please fill all fields.")
                 return
@@ -244,21 +264,28 @@ struct AnimatedAuthView: View {
                 return
             }
 
-            let success = viewModel.signUp(
-                username: username,
-                password: password,
-                users: users,
-                modelContext: modelContext
-            )
+            isSubmitting = true
 
-            if !success {
-                triggerError(viewModel.loginError)
+            Task {
+                let success = await viewModel.signUp(
+                    username: username.trimmingCharacters(in: .whitespacesAndNewlines),
+                    email: email.trimmingCharacters(in: .whitespacesAndNewlines),
+                    password: password
+                )
+
+                await MainActor.run {
+                    isSubmitting = false
+
+                    if !success {
+                        triggerError(viewModel.errorMessage)
+                    }
+                }
             }
         }
     }
 
     private func triggerError(_ message: String) {
-        errorMessage = message
+        errorMessage = message.isEmpty ? "Something went wrong." : message
         showError = true
 
         withAnimation(.easeInOut(duration: 0.08)) {
@@ -384,11 +411,6 @@ struct ShakeEffect: GeometryEffect {
     }
 }
 
-/*#Preview {
-    AnimatedAuthView(
-        viewModel: AuthViewModel(),
-        users: [],
-        modelContext: try! ModelContainer(for: AppUser.self, EventLog.self).mainContext
-    )
-}*/
-
+#Preview {
+    AnimatedAuthView(viewModel: AuthViewModel())
+}

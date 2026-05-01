@@ -28,7 +28,7 @@ struct AlarmSecuritySystemApp: App {
 
     var body: some Scene {
         WindowGroup {
-            DatabaseTestView()
+            ContentView()
         }
         .modelContainer(sharedModelContainer)
     }

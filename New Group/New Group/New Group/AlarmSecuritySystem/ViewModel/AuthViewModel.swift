@@ -1,71 +1,59 @@
 import Foundation
-import SwiftData
+import FirebaseAuth
+import FirebaseFirestore
 import Observation
 
 @Observable
 class AuthViewModel {
-    var loginError: String = ""
-    var loggedInUser: AppUser?
+    var errorMessage: String = ""
+    var currentUserId: String?
 
-    func login(username: String, password: String, users: [AppUser], modelContext: ModelContext) -> Bool {
-        let cleanUsername = username.trimmingCharacters(in: .whitespacesAndNewlines)
+    private let auth = Auth.auth()
+    private let db = Firestore.firestore()
 
-        guard let user = users.first(where: {
-            $0.username == cleanUsername && $0.password == password
-        }) else {
-            loginError = "Invalid username or password"
+    // LOGIN
+    func login(email: String, password: String) async -> Bool {
+        do {
+            let result = try await auth.signIn(withEmail: email, password: password)
+            currentUserId = result.user.uid
+            errorMessage = ""
+            return true
+        } catch {
+            errorMessage = error.localizedDescription
             return false
         }
-
-        loginError = ""
-        loggedInUser = user
-
-        let log = EventLog(
-            username: user.username,
-            eventType: "Login",
-            details: "\(user.username) logged into the mobile app"
-        )
-        modelContext.insert(log)
-
-        return true
     }
 
-    func signUp(username: String, password: String, users: [AppUser], modelContext: ModelContext) -> Bool {
-        let cleanUsername = username.trimmingCharacters(in: .whitespacesAndNewlines)
+    // SIGNUP
+    func signUp(username: String, email: String, password: String) async -> Bool {
+        do {
+            let result = try await auth.createUser(withEmail: email, password: password)
 
-        guard !cleanUsername.isEmpty else {
-            loginError = "Username cannot be empty"
+            let uid = result.user.uid
+
+            // запис в Firestore
+            try await db.collection("users").document(uid).setData([
+                "username": username,
+                "email": email,
+                "role": "user",
+                "isApproved": false,
+                "isBlocked": false,
+                "createdAt": Timestamp()
+            ])
+
+            currentUserId = uid
+            errorMessage = ""
+
+            return true
+        } catch {
+            errorMessage = error.localizedDescription
             return false
         }
-
-        let alreadyExists = users.contains { $0.username.lowercased() == cleanUsername.lowercased() }
-
-        if alreadyExists {
-            loginError = "Username already exists"
-            return false
-        }
-
-        let newUser = AppUser(
-            username: cleanUsername,
-            password: password,
-            role: .user
-        )
-
-        modelContext.insert(newUser)
-        loggedInUser = newUser
-        loginError = ""
-
-        let log = EventLog(
-            username: newUser.username,
-            eventType: "Signup",
-            details: "\(newUser.username) created a new account"
-        )
-        modelContext.insert(log)
-
-        return true
     }
 
+    // LOGOUT
     func logout() {
-        loggedInUser = nil
+        try? auth.signOut()
+        currentUserId = nil
     }
 }
