@@ -11,33 +11,66 @@
 		8EE577932F828A5900421E08 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8EE577922F828A5900421E08 /* FirebaseAuth */; };
 		8EE577952F828A5900421E08 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8EE577942F828A5900421E08 /* FirebaseFirestore */; };
 		8EE577972F828A5900421E08 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8EE577962F828A5900421E08 /* FirebaseMessaging */; };
+		8EF492932FA552520017BB2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EF492912FA552520017BB2D /* Assets.xcassets */; };
+		8EF492942FA552520017BB2D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492832FA552520017BB2D /* ContentView.swift */; };
+		8EF492952FA552520017BB2D /* AdminDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492802FA552520017BB2D /* AdminDashboardView.swift */; };
+		8EF492962FA552520017BB2D /* DashboardComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492842FA552520017BB2D /* DashboardComponents.swift */; };
+		8EF492972FA552520017BB2D /* UserManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4928C2FA552520017BB2D /* UserManagementView.swift */; };
+		8EF492992FA552520017BB2D /* AlarmSecuritySystemApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492902FA552520017BB2D /* AlarmSecuritySystemApp.swift */; };
+		8EF4929A2FA552520017BB2D /* ESP32Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4927D2FA552520017BB2D /* ESP32Service.swift */; };
+		8EF4929B2FA552520017BB2D /* FirebaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492792FA552520017BB2D /* FirebaseUser.swift */; };
+		8EF4929C2FA552520017BB2D /* SystemStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4928A2FA552520017BB2D /* SystemStatusView.swift */; };
+		8EF4929D2FA552520017BB2D /* FirestoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4927E2FA552520017BB2D /* FirestoreServices.swift */; };
+		8EF4929E2FA552520017BB2D /* UserDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4928B2FA552520017BB2D /* UserDashboardView.swift */; };
+		8EF4929F2FA552520017BB2D /* PendingApprovalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492882FA552520017BB2D /* PendingApprovalView.swift */; };
+		8EF492A02FA552520017BB2D /* BlockedUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492822FA552520017BB2D /* BlockedUserView.swift */; };
+		8EF492A12FA552520017BB2D /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492762FA552520017BB2D /* AppUser.swift */; };
+		8EF492A22FA552520017BB2D /* EventLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492772FA552520017BB2D /* EventLog.swift */; };
+		8EF492A42FA552520017BB2D /* QuickActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492892FA552520017BB2D /* QuickActionView.swift */; };
+		8EF492A52FA552520017BB2D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4928E2FA552520017BB2D /* AuthViewModel.swift */; };
+		8EF492A62FA552520017BB2D /* UserRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4927B2FA552520017BB2D /* UserRole.swift */; };
+		8EF492A72FA552520017BB2D /* SystemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4927A2FA552520017BB2D /* SystemState.swift */; };
+		8EF492A82FA552520017BB2D /* FirebaseEventLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492782FA552520017BB2D /* FirebaseEventLog.swift */; };
+		8EF492A92FA552520017BB2D /* EventLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492872FA552520017BB2D /* EventLogsView.swift */; };
+		8EF492AA2FA552520017BB2D /* AnimatedAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492812FA552520017BB2D /* AnimatedAuthView.swift */; };
+		8EF492AF2FA557DB0017BB2D /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492AE2FA557C60017BB2D /* DashboardViewModel.swift */; };
+		8EF492B12FA557E90017BB2D /* SystemStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492B02FA557DE0017BB2D /* SystemStatusViewModel.swift */; };
+		8EF492B52FA558120017BB2D /* UserManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492B42FA558030017BB2D /* UserManagementViewModel.swift */; };
+		8EF492B72FA558200017BB2D /* EventLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492B62FA558160017BB2D /* EventLogsViewModel.swift */; };
+		8EF492B92FA558CB0017BB2D /* StatusInfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492B82FA558C30017BB2D /* StatusInfoCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8EE5778F2F82857200421E08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8EE9E2052F65EFA700735A7E /* AlarmSecuritySystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlarmSecuritySystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EF492762FA552520017BB2D /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
+		8EF492772FA552520017BB2D /* EventLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLog.swift; sourceTree = "<group>"; };
+		8EF492782FA552520017BB2D /* FirebaseEventLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEventLog.swift; sourceTree = "<group>"; };
+		8EF492792FA552520017BB2D /* FirebaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUser.swift; sourceTree = "<group>"; };
+		8EF4927A2FA552520017BB2D /* SystemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemState.swift; sourceTree = "<group>"; };
+		8EF4927B2FA552520017BB2D /* UserRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRole.swift; sourceTree = "<group>"; };
+		8EF4927D2FA552520017BB2D /* ESP32Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESP32Service.swift; sourceTree = "<group>"; };
+		8EF4927E2FA552520017BB2D /* FirestoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServices.swift; sourceTree = "<group>"; };
+		8EF492802FA552520017BB2D /* AdminDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDashboardView.swift; sourceTree = "<group>"; };
+		8EF492812FA552520017BB2D /* AnimatedAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedAuthView.swift; sourceTree = "<group>"; };
+		8EF492822FA552520017BB2D /* BlockedUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserView.swift; sourceTree = "<group>"; };
+		8EF492832FA552520017BB2D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8EF492842FA552520017BB2D /* DashboardComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardComponents.swift; sourceTree = "<group>"; };
+		8EF492872FA552520017BB2D /* EventLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogsView.swift; sourceTree = "<group>"; };
+		8EF492882FA552520017BB2D /* PendingApprovalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingApprovalView.swift; sourceTree = "<group>"; };
+		8EF492892FA552520017BB2D /* QuickActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionView.swift; sourceTree = "<group>"; };
+		8EF4928A2FA552520017BB2D /* SystemStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemStatusView.swift; sourceTree = "<group>"; };
+		8EF4928B2FA552520017BB2D /* UserDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardView.swift; sourceTree = "<group>"; };
+		8EF4928C2FA552520017BB2D /* UserManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementView.swift; sourceTree = "<group>"; };
+		8EF4928E2FA552520017BB2D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		8EF492902FA552520017BB2D /* AlarmSecuritySystemApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSecuritySystemApp.swift; sourceTree = "<group>"; };
+		8EF492912FA552520017BB2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8EF492AE2FA557C60017BB2D /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		8EF492B02FA557DE0017BB2D /* SystemStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemStatusViewModel.swift; sourceTree = "<group>"; };
+		8EF492B42FA558030017BB2D /* UserManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementViewModel.swift; sourceTree = "<group>"; };
+		8EF492B62FA558160017BB2D /* EventLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogsViewModel.swift; sourceTree = "<group>"; };
+		8EF492B82FA558C30017BB2D /* StatusInfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusInfoCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8EE5779A2F82ED4C00421E08 /* Exceptions for "AlarmSecuritySystem" folder in "AlarmSecuritySystem" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Untitled.swift,
-			);
-			target = 8EE9E2042F65EFA700735A7E /* AlarmSecuritySystem */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		8EE9E2072F65EFA700735A7E /* AlarmSecuritySystem */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				8EE5779A2F82ED4C00421E08 /* Exceptions for "AlarmSecuritySystem" folder in "AlarmSecuritySystem" target */,
-			);
-			path = AlarmSecuritySystem;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8EE9E2022F65EFA700735A7E /* Frameworks */ = {
@@ -53,18 +86,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8EE577982F82ED1B00421E08 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				8EE9E2072F65EFA700735A7E /* AlarmSecuritySystem */,
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		8EE9E1FC2F65EFA700735A7E = {
 			isa = PBXGroup;
 			children = (
-				8EE9E21E2F65F27500735A7E /* New Group */,
+				8EF492922FA552520017BB2D /* AlarmSecuritySystem */,
 				8EE9E2062F65EFA700735A7E /* Products */,
 				8EE5778F2F82857200421E08 /* GoogleService-Info.plist */,
 			);
@@ -78,20 +103,78 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8EE9E21E2F65F27500735A7E /* New Group */ = {
+		8EF4927C2FA552520017BB2D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8EE9E21F2F65F32600735A7E /* New Group */,
+				8EF492762FA552520017BB2D /* AppUser.swift */,
+				8EF492772FA552520017BB2D /* EventLog.swift */,
+				8EF492782FA552520017BB2D /* FirebaseEventLog.swift */,
+				8EF492792FA552520017BB2D /* FirebaseUser.swift */,
+				8EF4927A2FA552520017BB2D /* SystemState.swift */,
+				8EF4927B2FA552520017BB2D /* UserRole.swift */,
 			);
-			path = "New Group";
+			path = Model;
 			sourceTree = "<group>";
 		};
-		8EE9E21F2F65F32600735A7E /* New Group */ = {
+		8EF4927F2FA552520017BB2D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8EE577982F82ED1B00421E08 /* New Group */,
+				8EF4927D2FA552520017BB2D /* ESP32Service.swift */,
+				8EF4927E2FA552520017BB2D /* FirestoreServices.swift */,
 			);
-			path = "New Group";
+			path = Services;
+			sourceTree = "<group>";
+		};
+		8EF4928D2FA552520017BB2D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8EF492802FA552520017BB2D /* AdminDashboardView.swift */,
+				8EF492812FA552520017BB2D /* AnimatedAuthView.swift */,
+				8EF492822FA552520017BB2D /* BlockedUserView.swift */,
+				8EF492832FA552520017BB2D /* ContentView.swift */,
+				8EF492872FA552520017BB2D /* EventLogsView.swift */,
+				8EF492882FA552520017BB2D /* PendingApprovalView.swift */,
+				8EF492892FA552520017BB2D /* QuickActionView.swift */,
+				8EF4928A2FA552520017BB2D /* SystemStatusView.swift */,
+				8EF4928B2FA552520017BB2D /* UserDashboardView.swift */,
+				8EF4928C2FA552520017BB2D /* UserManagementView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8EF4928F2FA552520017BB2D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8EF492B02FA557DE0017BB2D /* SystemStatusViewModel.swift */,
+				8EF492B42FA558030017BB2D /* UserManagementViewModel.swift */,
+				8EF492B62FA558160017BB2D /* EventLogsViewModel.swift */,
+				8EF492AE2FA557C60017BB2D /* DashboardViewModel.swift */,
+				8EF4928E2FA552520017BB2D /* AuthViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8EF492922FA552520017BB2D /* AlarmSecuritySystem */ = {
+			isa = PBXGroup;
+			children = (
+				8EF492AD2FA555D40017BB2D /* Components  */,
+				8EF4927C2FA552520017BB2D /* Model */,
+				8EF4927F2FA552520017BB2D /* Services */,
+				8EF4928D2FA552520017BB2D /* View */,
+				8EF4928F2FA552520017BB2D /* ViewModel */,
+				8EF492902FA552520017BB2D /* AlarmSecuritySystemApp.swift */,
+				8EF492912FA552520017BB2D /* Assets.xcassets */,
+			);
+			path = AlarmSecuritySystem;
+			sourceTree = "<group>";
+		};
+		8EF492AD2FA555D40017BB2D /* Components  */ = {
+			isa = PBXGroup;
+			children = (
+				8EF492842FA552520017BB2D /* DashboardComponents.swift */,
+				8EF492B82FA558C30017BB2D /* StatusInfoCard.swift */,
+			);
+			path = "Components ";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,9 +191,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				8EE9E2072F65EFA700735A7E /* AlarmSecuritySystem */,
 			);
 			name = AlarmSecuritySystem;
 			packageProductDependencies = (
@@ -164,6 +244,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EF492932FA552520017BB2D /* Assets.xcassets in Resources */,
 				8EE577902F82857200421E08 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,6 +256,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EF492942FA552520017BB2D /* ContentView.swift in Sources */,
+				8EF492952FA552520017BB2D /* AdminDashboardView.swift in Sources */,
+				8EF492962FA552520017BB2D /* DashboardComponents.swift in Sources */,
+				8EF492972FA552520017BB2D /* UserManagementView.swift in Sources */,
+				8EF492992FA552520017BB2D /* AlarmSecuritySystemApp.swift in Sources */,
+				8EF4929A2FA552520017BB2D /* ESP32Service.swift in Sources */,
+				8EF4929B2FA552520017BB2D /* FirebaseUser.swift in Sources */,
+				8EF4929C2FA552520017BB2D /* SystemStatusView.swift in Sources */,
+				8EF492B72FA558200017BB2D /* EventLogsViewModel.swift in Sources */,
+				8EF4929D2FA552520017BB2D /* FirestoreServices.swift in Sources */,
+				8EF4929E2FA552520017BB2D /* UserDashboardView.swift in Sources */,
+				8EF4929F2FA552520017BB2D /* PendingApprovalView.swift in Sources */,
+				8EF492A02FA552520017BB2D /* BlockedUserView.swift in Sources */,
+				8EF492A12FA552520017BB2D /* AppUser.swift in Sources */,
+				8EF492A22FA552520017BB2D /* EventLog.swift in Sources */,
+				8EF492AF2FA557DB0017BB2D /* DashboardViewModel.swift in Sources */,
+				8EF492A42FA552520017BB2D /* QuickActionView.swift in Sources */,
+				8EF492B52FA558120017BB2D /* UserManagementViewModel.swift in Sources */,
+				8EF492A52FA552520017BB2D /* AuthViewModel.swift in Sources */,
+				8EF492B92FA558CB0017BB2D /* StatusInfoCard.swift in Sources */,
+				8EF492A62FA552520017BB2D /* UserRole.swift in Sources */,
+				8EF492A72FA552520017BB2D /* SystemState.swift in Sources */,
+				8EF492A82FA552520017BB2D /* FirebaseEventLog.swift in Sources */,
+				8EF492B12FA557E90017BB2D /* SystemStatusViewModel.swift in Sources */,
+				8EF492A92FA552520017BB2D /* EventLogsView.swift in Sources */,
+				8EF492AA2FA552520017BB2D /* AnimatedAuthView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

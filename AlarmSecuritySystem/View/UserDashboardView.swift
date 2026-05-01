@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct AdminDashboardView: View {
+struct UserDashboardView: View {
     let user: FirebaseUser
     let viewModel: AuthViewModel
 
@@ -13,7 +13,7 @@ struct AdminDashboardView: View {
                     VStack(alignment: .leading, spacing: 22) {
                         header
 
-                        DashboardSectionTitle(title: "System Overview")
+                        DashboardSectionTitle(title: "My Security Access")
 
                         LazyVGrid(columns: [
                             GridItem(.flexible()),
@@ -33,7 +33,7 @@ struct AdminDashboardView: View {
 
                             DashboardCard(
                                 title: "Live Camera",
-                                subtitle: "ESP32-CAM stream",
+                                subtitle: "View stream",
                                 icon: "video.fill",
                                 color: .blue
                             )
@@ -43,49 +43,16 @@ struct AdminDashboardView: View {
                             } label: {
                                 DashboardCard(
                                     title: "Quick Actions",
-                                    subtitle: "Arm / Disarm",
+                                    subtitle: "Access options",
                                     icon: "bolt.fill",
                                     color: .blue
                                 )
                             }
                             .buttonStyle(.plain)
 
-                            NavigationLink {
-                                EventLogsView()
-                            } label: {
-                                DashboardCard(
-                                    title: "Event Logs",
-                                    subtitle: "Activity history",
-                                    icon: "list.bullet.clipboard.fill",
-                                    color: .blue
-                                )
-                            }
-                            .buttonStyle(.plain)
-
-                            DashboardCard(
-                                title: "User Management",
-                                subtitle: "Approve / block users",
-                                icon: "person.3.fill",
-                                color: .blue
-                            )
-
-                            DashboardCard(
-                                title: "System Settings",
-                                subtitle: "PIN, cards and rules",
-                                icon: "gearshape.fill",
-                                color: .blue
-                            )
-
-                            DashboardCard(
-                                title: "Notifications",
-                                subtitle: "Security alerts",
-                                icon: "bell.badge.fill",
-                                color: .blue
-                            )
-
                             DashboardCard(
                                 title: "Profile",
-                                subtitle: "Admin account",
+                                subtitle: "Your account",
                                 icon: "person.crop.circle.fill",
                                 color: .blue
                             )
@@ -119,14 +86,14 @@ struct AdminDashboardView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Admin Dashboard")
+            Text("User Dashboard")
                 .font(.system(size: 32, weight: .bold))
 
             Text("Welcome, \(user.username)")
                 .font(.headline)
                 .foregroundStyle(.secondary)
 
-            Text("Full system control and monitoring")
+            Text("Access and monitor your security system")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }

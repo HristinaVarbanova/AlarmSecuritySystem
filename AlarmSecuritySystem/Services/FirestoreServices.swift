@@ -29,6 +29,55 @@ final class FirestoreService {
         }
     }
     
+    func fetchUsers(completion: @escaping (Result<[FirebaseUser], Error>) -> Void) {
+        db.collection("users").getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let documents = snapshot?.documents else {
+                completion(.success([]))
+                return
+            }
+
+            let users: [FirebaseUser] = documents.map { document in
+                let data = document.data()
+
+                return FirebaseUser(
+                    id: document.documentID,
+                    username: data["username"] as? String ?? "",
+                    email: data["email"] as? String ?? "",
+                    role: data["role"] as? String ?? "user",
+                    isApproved: data["isApproved"] as? Bool ?? false,
+                    isBlocked: data["isBlocked"] as? Bool ?? false
+                )
+            }
+
+            completion(.success(users))
+        }
+    }
+
+    func updateUserStatus(
+        userId: String,
+        isApproved: Bool,
+        isBlocked: Bool,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        db.collection("users")
+            .document(userId)
+            .updateData([
+                "isApproved": isApproved,
+                "isBlocked": isBlocked
+            ]) { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(()))
+                }
+            }
+    }
+    
     func fetchSystemStateModel(completion: @escaping (Result<SystemState, Error>) -> Void) {
         db.collection("systemState")
             .document("main")
