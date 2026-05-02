@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct UserManagementView: View {
+    let adminUser: FirebaseUser
     @State private var viewModel = UserManagementViewModel()
 
     var body: some View {
@@ -24,13 +25,31 @@ struct UserManagementView: View {
                                 UserManagementCard(
                                     user: user,
                                     onApprove: {
-                                        viewModel.updateUser(userId: user.id, isApproved: true, isBlocked: user.isBlocked)
+                                        viewModel.updateUser(
+                                            userId: user.id,
+                                            isApproved: true,
+                                            isBlocked: user.isBlocked,
+                                            actionType: "APPROVE USER",
+                                            adminUsername: adminUser.username
+                                        )
                                     },
                                     onBlock: {
-                                        viewModel.updateUser(userId: user.id, isApproved: user.isApproved, isBlocked: true)
+                                        viewModel.updateUser(
+                                            userId: user.id,
+                                            isApproved: user.isApproved,
+                                            isBlocked: true,
+                                            actionType: "BLOCK USER",
+                                            adminUsername: adminUser.username
+                                        )
                                     },
                                     onUnblock: {
-                                        viewModel.updateUser(userId: user.id, isApproved: user.isApproved, isBlocked: false)
+                                        viewModel.updateUser(
+                                            userId: user.id,
+                                            isApproved: user.isApproved,
+                                            isBlocked: false,
+                                            actionType: "UNBLOCK USER",
+                                            adminUsername: adminUser.username
+                                        )
                                     }
                                 )
                             }

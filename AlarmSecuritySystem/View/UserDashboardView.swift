@@ -31,12 +31,16 @@ struct UserDashboardView: View {
                             }
                             .buttonStyle(.plain)
 
-                            DashboardCard(
-                                title: "Live Camera",
-                                subtitle: "View stream",
-                                icon: "video.fill",
-                                color: .blue
-                            )
+                            NavigationLink {
+                                LiveCameraView()
+                            } label: {
+                                DashboardCard(
+                                    title: "Live Camera",
+                                    subtitle: "ESP32-CAM stream",
+                                    icon: "video.fill",
+                                    color: .blue
+                                )
+                            }
 
                             NavigationLink {
                                 QuickActionsView(user: user)
@@ -50,12 +54,17 @@ struct UserDashboardView: View {
                             }
                             .buttonStyle(.plain)
 
-                            DashboardCard(
-                                title: "Profile",
-                                subtitle: "Your account",
-                                icon: "person.crop.circle.fill",
-                                color: .blue
-                            )
+                            NavigationLink {
+                                ProfileView(user: user, viewModel: viewModel)
+                            } label: {
+                                DashboardCard(
+                                    title: "Profile",
+                                    subtitle: "Your account",
+                                    icon: "person.crop.circle.fill",
+                                    color: .blue
+                                )
+                            }
+                            .buttonStyle(.plain)
                         }
 
                         Button {

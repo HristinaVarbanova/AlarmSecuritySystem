@@ -32,13 +32,16 @@ struct AdminDashboardView: View {
                             }
                             .buttonStyle(.plain)
 
-                            DashboardCard(
-                                title: "Live Camera",
-                                subtitle: "ESP32-CAM stream",
-                                icon: "video.fill",
-                                color: .blue
-                            )
-
+                            NavigationLink {
+                                LiveCameraView()
+                            } label: {
+                                DashboardCard(
+                                    title: "Live Camera",
+                                    subtitle: "ESP32-CAM stream",
+                                    icon: "video.fill",
+                                    color: .blue
+                                )
+                            }
                             NavigationLink {
                                 QuickActionsView(user: user)
                             } label: {
@@ -64,7 +67,7 @@ struct AdminDashboardView: View {
                             .buttonStyle(.plain)
 
                             NavigationLink {
-                                UserManagementView()
+                                UserManagementView(adminUser: user)
                             } label: {
                                 DashboardCard(
                                     title: "User Management",
@@ -89,12 +92,17 @@ struct AdminDashboardView: View {
                                 color: .blue
                             )
 
-                            DashboardCard(
-                                title: "Profile",
-                                subtitle: "Admin account",
-                                icon: "person.crop.circle.fill",
-                                color: .blue
-                            )
+                            NavigationLink {
+                                ProfileView(user: user, viewModel: viewModel)
+                            } label: {
+                                DashboardCard(
+                                    title: "Profile",
+                                    subtitle: "Admin account",
+                                    icon: "person.crop.circle.fill",
+                                    color: .blue
+                                )
+                            }
+                            .buttonStyle(.plain)
                         }
 
                         Button {

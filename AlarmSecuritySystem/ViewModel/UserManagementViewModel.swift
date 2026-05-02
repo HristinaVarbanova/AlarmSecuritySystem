@@ -26,7 +26,13 @@ final class UserManagementViewModel {
         }
     }
 
-    func updateUser(userId: String, isApproved: Bool, isBlocked: Bool) {
+    func updateUser(
+        userId: String,
+        isApproved: Bool,
+        isBlocked: Bool,
+        actionType: String,
+        adminUsername: String
+    ) {
         FirestoreService.shared.updateUserStatus(
             userId: userId,
             isApproved: isApproved,
@@ -35,6 +41,12 @@ final class UserManagementViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success:
+                    FirestoreService.shared.addEventLog(
+                        type: actionType,
+                        message: "\(adminUsername) changed user status",
+                        performedByUsername: adminUsername
+                    ) { _ in }
+
                     self.loadUsers()
 
                 case .failure(let error):
