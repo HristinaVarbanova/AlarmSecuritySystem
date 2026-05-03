@@ -30,7 +30,9 @@ struct UserDashboardView: View {
                                 )
                             }
                             .buttonStyle(.plain)
-
+                            .disabled(user.isBlocked)
+                            .opacity(user.isBlocked ? 0.4 : 1)
+                            
                             NavigationLink {
                                 LiveCameraView()
                             } label: {
@@ -41,6 +43,9 @@ struct UserDashboardView: View {
                                     color: .blue
                                 )
                             }
+                            .buttonStyle(.plain)
+                            .disabled(user.isBlocked)
+                            .opacity(user.isBlocked ? 0.4 : 1)
 
                             NavigationLink {
                                 QuickActionsView(user: user)
@@ -49,6 +54,20 @@ struct UserDashboardView: View {
                                     title: "Quick Actions",
                                     subtitle: "Access options",
                                     icon: "bolt.fill",
+                                    color: .blue
+                                )
+                            }
+                            .buttonStyle(.plain)
+                            .disabled(user.isBlocked)
+                            .opacity(user.isBlocked ? 0.4 : 1)
+                            
+                            NavigationLink {
+                                NotificationsView(user: user)
+                            } label: {
+                                DashboardCard(
+                                    title: "Notifications",
+                                    subtitle: "Personal alerts",
+                                    icon: "bell.fill",
                                     color: .blue
                                 )
                             }
@@ -65,6 +84,8 @@ struct UserDashboardView: View {
                                 )
                             }
                             .buttonStyle(.plain)
+                            .disabled(user.isBlocked)
+                            .opacity(user.isBlocked ? 0.4 : 1)
                         }
 
                         Button {

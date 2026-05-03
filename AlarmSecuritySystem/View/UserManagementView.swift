@@ -22,36 +22,38 @@ struct UserManagementView: View {
                     ScrollView {
                         VStack(spacing: 14) {
                             ForEach(viewModel.users, id: \.id) { user in
-                                UserManagementCard(
-                                    user: user,
-                                    onApprove: {
-                                        viewModel.updateUser(
-                                            userId: user.id,
-                                            isApproved: true,
-                                            isBlocked: user.isBlocked,
-                                            actionType: "APPROVE USER",
-                                            adminUsername: adminUser.username
-                                        )
-                                    },
-                                    onBlock: {
-                                        viewModel.updateUser(
-                                            userId: user.id,
-                                            isApproved: user.isApproved,
-                                            isBlocked: true,
-                                            actionType: "BLOCK USER",
-                                            adminUsername: adminUser.username
-                                        )
-                                    },
-                                    onUnblock: {
-                                        viewModel.updateUser(
-                                            userId: user.id,
-                                            isApproved: user.isApproved,
-                                            isBlocked: false,
-                                            actionType: "UNBLOCK USER",
-                                            adminUsername: adminUser.username
-                                        )
-                                    }
-                                )
+                                if user.id != adminUser.id {
+                                    UserManagementCard(
+                                        user: user,
+                                        onApprove: {
+                                            viewModel.updateUser(
+                                                userId: user.id,
+                                                isApproved: true,
+                                                isBlocked: user.isBlocked,
+                                                actionType: "APPROVE_USER",
+                                                adminUsername: adminUser.username
+                                            )
+                                        },
+                                        onBlock: {
+                                            viewModel.updateUser(
+                                                userId: user.id,
+                                                isApproved: user.isApproved,
+                                                isBlocked: true,
+                                                actionType: "BLOCK_USER",
+                                                adminUsername: adminUser.username
+                                            )
+                                        },
+                                        onUnblock: {
+                                            viewModel.updateUser(
+                                                userId: user.id,
+                                                isApproved: user.isApproved,
+                                                isBlocked: false,
+                                                actionType: "UNBLOCK_USER",
+                                                adminUsername: adminUser.username
+                                            )
+                                        }
+                                    )
+                                }
                             }
                         }
                         .padding(.vertical, 8)

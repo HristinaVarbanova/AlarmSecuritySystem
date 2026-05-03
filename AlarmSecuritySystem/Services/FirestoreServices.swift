@@ -77,7 +77,74 @@ final class FirestoreService {
                 }
             }
     }
+    func addNotification(
+        receiverUid: String,
+        roleTarget: String,
+        type: String,
+        message: String,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        db.collection("notifications")
+            .addDocument(data: [
+                "receiverUid": receiverUid,
+                "roleTarget": roleTarget,
+                "type": type,
+                "message": message,
+                "createdAt": Timestamp(),
+                "isRead": false
+            ]) { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(()))
+                }
+            }
+    }
+
+    func fetchNotifications(
+        for userId: String,
+        completion: @escaping (Result<[AppNotification], Error>) -> Void
+    ) {
+        db.collection("notifications")
+            .whereField("receiverUid", isEqualTo: userId)
+            .order(by: "createdAt", descending: true)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                let notifications = snapshot?.documents.map { document in
+                    AppNotification(id: document.documentID, data: document.data())
+                } ?? []
+
+                completion(.success(notifications))
+            }
+    }
     
+    func listenForNotifications(
+        for userId: String,
+        completion: @escaping (Result<[AppNotification], Error>) -> Void
+    ) -> ListenerRegistration {
+        return db.collection("notifications")
+            .whereField("receiverUid", isEqualTo: userId)
+            .order(by: "createdAt", descending: true)
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                let notifications = snapshot?.documents.map { document in
+                    AppNotification(
+                        id: document.documentID,
+                        data: document.data()
+                    )
+                } ?? []
+
+                completion(.success(notifications))
+            }
+    }
     func fetchSystemStateModel(completion: @escaping (Result<SystemState, Error>) -> Void) {
         db.collection("systemState")
             .document("main")

@@ -41,11 +41,15 @@ final class UserManagementViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success:
-                    FirestoreService.shared.addEventLog(
-                        type: actionType,
-                        message: "\(adminUsername) changed user status",
-                        performedByUsername: adminUsername
-                    ) { _ in }
+                    self.addAdminEventLog(
+                        actionType: actionType,
+                        adminUsername: adminUsername
+                    )
+
+                    self.addUserNotificationIfNeeded(
+                        userId: userId,
+                        actionType: actionType
+                    )
 
                     self.loadUsers()
 
@@ -53,6 +57,43 @@ final class UserManagementViewModel {
                     self.errorMessage = error.localizedDescription
                 }
             }
+        }
+    }
+
+    private func addAdminEventLog(
+        actionType: String,
+        adminUsername: String
+    ) {
+        FirestoreService.shared.addEventLog(
+            type: actionType,
+            message: "\(adminUsername) changed user status",
+            performedByUsername: adminUsername
+        ) { _ in }
+    }
+
+    private func addUserNotificationIfNeeded(
+        userId: String,
+        actionType: String
+    ) {
+        switch actionType {
+        case "BLOCK_USER":
+            FirestoreService.shared.addNotification(
+                receiverUid: userId,
+                roleTarget: "user",
+                type: "USER BLOCKED",
+                message: "Your account has been blocked"
+            ) { _ in }
+
+        case "UNBLOCK_USER":
+            FirestoreService.shared.addNotification(
+                receiverUid: userId,
+                roleTarget: "user",
+                type: "USER UNBLOCKED",
+                message: "Your account has been unblocked"
+            ) { _ in }
+
+        default:
+            break
         }
     }
 }

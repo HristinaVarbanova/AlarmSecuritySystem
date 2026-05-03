@@ -38,6 +38,12 @@
 		8EF492B52FA558120017BB2D /* UserManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492B42FA558030017BB2D /* UserManagementViewModel.swift */; };
 		8EF492B72FA558200017BB2D /* EventLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492B62FA558160017BB2D /* EventLogsViewModel.swift */; };
 		8EF492B92FA558CB0017BB2D /* StatusInfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF492B82FA558C30017BB2D /* StatusInfoCard.swift */; };
+		8EFB6F962FA6595A00E52F83 /* LiveCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFB6F952FA6595600E52F83 /* LiveCameraView.swift */; };
+		8EFB6F992FA6841300E52F83 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFB6F982FA6840900E52F83 /* ProfileView.swift */; };
+		8EFB6F9D2FA6869F00E52F83 /* ProfileComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFB6F9C2FA6869C00E52F83 /* ProfileComponents.swift */; };
+		8EFB6F9F2FA7C27500E52F83 /* AppNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFB6F9E2FA7C26B00E52F83 /* AppNotifications.swift */; };
+		8EFB6FA32FA7C2BC00E52F83 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFB6FA22FA7C2AB00E52F83 /* NotificationsViewModel.swift */; };
+		8EFB6FA72FA7C2DF00E52F83 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFB6FA62FA7C2D900E52F83 /* NotificationsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +76,13 @@
 		8EF492B42FA558030017BB2D /* UserManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementViewModel.swift; sourceTree = "<group>"; };
 		8EF492B62FA558160017BB2D /* EventLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogsViewModel.swift; sourceTree = "<group>"; };
 		8EF492B82FA558C30017BB2D /* StatusInfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusInfoCard.swift; sourceTree = "<group>"; };
+		8EFB6F952FA6595600E52F83 /* LiveCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCameraView.swift; sourceTree = "<group>"; };
+		8EFB6F972FA65B6F00E52F83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8EFB6F982FA6840900E52F83 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		8EFB6F9C2FA6869C00E52F83 /* ProfileComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileComponents.swift; sourceTree = "<group>"; };
+		8EFB6F9E2FA7C26B00E52F83 /* AppNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotifications.swift; sourceTree = "<group>"; };
+		8EFB6FA22FA7C2AB00E52F83 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		8EFB6FA62FA7C2D900E52F83 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF492762FA552520017BB2D /* AppUser.swift */,
+				8EFB6F9E2FA7C26B00E52F83 /* AppNotifications.swift */,
 				8EF492772FA552520017BB2D /* EventLog.swift */,
 				8EF492782FA552520017BB2D /* FirebaseEventLog.swift */,
 				8EF492792FA552520017BB2D /* FirebaseUser.swift */,
@@ -132,7 +146,10 @@
 				8EF492812FA552520017BB2D /* AnimatedAuthView.swift */,
 				8EF492822FA552520017BB2D /* BlockedUserView.swift */,
 				8EF492832FA552520017BB2D /* ContentView.swift */,
+				8EFB6F982FA6840900E52F83 /* ProfileView.swift */,
 				8EF492872FA552520017BB2D /* EventLogsView.swift */,
+				8EFB6F952FA6595600E52F83 /* LiveCameraView.swift */,
+				8EFB6FA62FA7C2D900E52F83 /* NotificationsView.swift */,
 				8EF492882FA552520017BB2D /* PendingApprovalView.swift */,
 				8EF492892FA552520017BB2D /* QuickActionView.swift */,
 				8EF4928A2FA552520017BB2D /* SystemStatusView.swift */,
@@ -147,6 +164,7 @@
 			children = (
 				8EF492B02FA557DE0017BB2D /* SystemStatusViewModel.swift */,
 				8EF492B42FA558030017BB2D /* UserManagementViewModel.swift */,
+				8EFB6FA22FA7C2AB00E52F83 /* NotificationsViewModel.swift */,
 				8EF492B62FA558160017BB2D /* EventLogsViewModel.swift */,
 				8EF492AE2FA557C60017BB2D /* DashboardViewModel.swift */,
 				8EF4928E2FA552520017BB2D /* AuthViewModel.swift */,
@@ -157,6 +175,7 @@
 		8EF492922FA552520017BB2D /* AlarmSecuritySystem */ = {
 			isa = PBXGroup;
 			children = (
+				8EFB6F972FA65B6F00E52F83 /* Info.plist */,
 				8EF492AD2FA555D40017BB2D /* Components  */,
 				8EF4927C2FA552520017BB2D /* Model */,
 				8EF4927F2FA552520017BB2D /* Services */,
@@ -171,6 +190,7 @@
 		8EF492AD2FA555D40017BB2D /* Components  */ = {
 			isa = PBXGroup;
 			children = (
+				8EFB6F9C2FA6869C00E52F83 /* ProfileComponents.swift */,
 				8EF492842FA552520017BB2D /* DashboardComponents.swift */,
 				8EF492B82FA558C30017BB2D /* StatusInfoCard.swift */,
 			);
@@ -262,16 +282,22 @@
 				8EF492972FA552520017BB2D /* UserManagementView.swift in Sources */,
 				8EF492992FA552520017BB2D /* AlarmSecuritySystemApp.swift in Sources */,
 				8EF4929A2FA552520017BB2D /* ESP32Service.swift in Sources */,
+				8EFB6F9F2FA7C27500E52F83 /* AppNotifications.swift in Sources */,
+				8EFB6FA72FA7C2DF00E52F83 /* NotificationsView.swift in Sources */,
 				8EF4929B2FA552520017BB2D /* FirebaseUser.swift in Sources */,
+				8EFB6F9D2FA6869F00E52F83 /* ProfileComponents.swift in Sources */,
 				8EF4929C2FA552520017BB2D /* SystemStatusView.swift in Sources */,
 				8EF492B72FA558200017BB2D /* EventLogsViewModel.swift in Sources */,
 				8EF4929D2FA552520017BB2D /* FirestoreServices.swift in Sources */,
 				8EF4929E2FA552520017BB2D /* UserDashboardView.swift in Sources */,
+				8EFB6F962FA6595A00E52F83 /* LiveCameraView.swift in Sources */,
+				8EFB6F992FA6841300E52F83 /* ProfileView.swift in Sources */,
 				8EF4929F2FA552520017BB2D /* PendingApprovalView.swift in Sources */,
 				8EF492A02FA552520017BB2D /* BlockedUserView.swift in Sources */,
 				8EF492A12FA552520017BB2D /* AppUser.swift in Sources */,
 				8EF492A22FA552520017BB2D /* EventLog.swift in Sources */,
 				8EF492AF2FA557DB0017BB2D /* DashboardViewModel.swift in Sources */,
+				8EFB6FA32FA7C2BC00E52F83 /* NotificationsViewModel.swift in Sources */,
 				8EF492A42FA552520017BB2D /* QuickActionView.swift in Sources */,
 				8EF492B52FA558120017BB2D /* UserManagementViewModel.swift in Sources */,
 				8EF492A52FA552520017BB2D /* AuthViewModel.swift in Sources */,
@@ -416,6 +442,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlarmSecuritySystem/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Alarm Security";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -447,6 +476,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlarmSecuritySystem/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Alarm Security";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
