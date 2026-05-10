@@ -78,15 +78,20 @@ struct AdminDashboardView: View {
                             }
                             .buttonStyle(.plain)
 
-                            DashboardCard(
-                                title: "System Settings",
-                                subtitle: "PIN, cards and rules",
-                                icon: "gearshape.fill",
-                                color: .blue
-                            )
+                            NavigationLink {
+                                SystemSettingsView(adminUser: user)
+                            } label: {
+                                DashboardCard(
+                                    title: "System Settings",
+                                    subtitle: "PIN and working hours",
+                                    icon: "gearshape.fill",
+                                    color: .blue
+                                )
+                            }
+                            .buttonStyle(.plain)
 
                             NavigationLink {
-                                NotificationsView(user: user)
+                                NotificationsView(user: user, isAdminMode: true)
                             } label: {
                                 DashboardCard(
                                     title: "Notifications",
@@ -142,15 +147,8 @@ struct AdminDashboardView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Admin Dashboard")
-                .font(.system(size: 32, weight: .bold))
-
             Text("Welcome, \(user.username)")
                 .font(.headline)
-                .foregroundStyle(.secondary)
-
-            Text("Full system control and monitoring")
-                .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
     }

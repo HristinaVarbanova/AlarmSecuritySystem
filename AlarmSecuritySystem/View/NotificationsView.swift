@@ -2,6 +2,7 @@ import SwiftUI
 
 struct NotificationsView: View {
     let user: FirebaseUser
+    let isAdminMode: Bool
 
     @State private var viewModel = NotificationsViewModel()
 
@@ -37,7 +38,11 @@ struct NotificationsView: View {
         .navigationTitle("Notifications")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            viewModel.startListening(for: user.id)
+            if isAdminMode {
+                viewModel.startListeningForAdmin()
+            } else {
+                viewModel.startListening(for: user.id)
+            }
         }
         .onDisappear {
             viewModel.stopListening()
@@ -60,7 +65,7 @@ struct NotificationsView: View {
                 .font(.largeTitle)
                 .bold()
 
-            Text("Personal security alerts")
+            Text(isAdminMode ? "Important security alerts" : "Personal security alerts")
                 .foregroundStyle(.secondary)
         }
         .padding(.bottom, 8)
@@ -99,12 +104,8 @@ struct NotificationCard: View {
                 .clipShape(Circle())
 
             VStack(alignment: .leading, spacing: 6) {
-                Text(titleText)
-                    .font(.headline)
-
                 Text(notification.message)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .font(.headline)
 
                 Text(notification.createdAt.formatted(date: .abbreviated, time: .shortened))
                     .font(.caption2)
@@ -123,38 +124,29 @@ struct NotificationCard: View {
         .shadow(color: .blue.opacity(0.10), radius: 14, x: 0, y: 8)
     }
 
-    private var titleText: String {
-        switch notification.type {
-        case "SYSTEM_ARMED":
-            return "System Armed"
-        case "SYSTEM_DISARMED":
-            return "System Disarmed"
-        case "ACCESS_DENIED_CARD":
-            return "Access Denied"
-        case "ACCESS_DENIED_OUTSIDE_HOURS":
-            return "Outside Working Hours"
-        case "USER_BLOCKED":
-            return "Account Blocked"
-        case "USER_UNBLOCKED":
-            return "Account Unblocked"
-        default:
-            return "Notification"
-        }
-    }
-
     private var iconName: String {
-        switch notification.type {
-        case "SYSTEM_ARMED":
+        let type = notification.type.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+
+        switch type {
+        case "system armed":
             return "shield.fill"
-        case "SYSTEM_DISARMED":
+        case "system disarmed":
             return "shield.slash.fill"
-        case "ACCESS_DENIED_CARD":
+        case "access denied":
             return "xmark.shield.fill"
-        case "ACCESS_DENIED_OUTSIDE_HOURS":
+        case "access denied outside working hours":
             return "clock.badge.exclamationmark"
-        case "USER_BLOCKED":
+        case "motion detected":
+            return "figure.walk.motion"
+        case "alarm triggered":
+            return "exclamationmark.triangle.fill"
+        case "suspicious activity":
+            return "eye.trianglebadge.exclamationmark"
+        case "pending user approval":
+            return "person.badge.clock.fill"
+        case "user blocked":
             return "person.crop.circle.badge.xmark"
-        case "USER_UNBLOCKED":
+        case "user unblocked":
             return "person.crop.circle.badge.checkmark"
         default:
             return "bell.fill"

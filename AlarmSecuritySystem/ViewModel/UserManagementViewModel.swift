@@ -80,7 +80,7 @@ final class UserManagementViewModel {
             FirestoreService.shared.addNotification(
                 receiverUid: userId,
                 roleTarget: "user",
-                type: "USER BLOCKED",
+                type: "User blocked",
                 message: "Your account has been blocked"
             ) { _ in }
 
@@ -88,7 +88,7 @@ final class UserManagementViewModel {
             FirestoreService.shared.addNotification(
                 receiverUid: userId,
                 roleTarget: "user",
-                type: "USER UNBLOCKED",
+                type: "User unblocked",
                 message: "Your account has been unblocked"
             ) { _ in }
 

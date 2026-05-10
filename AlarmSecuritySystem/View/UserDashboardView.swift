@@ -62,7 +62,7 @@ struct UserDashboardView: View {
                             .opacity(user.isBlocked ? 0.4 : 1)
                             
                             NavigationLink {
-                                NotificationsView(user: user)
+                                NotificationsView(user: user, isAdminMode: false)
                             } label: {
                                 DashboardCard(
                                     title: "Notifications",
@@ -116,15 +116,8 @@ struct UserDashboardView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("User Dashboard")
-                .font(.system(size: 32, weight: .bold))
-
             Text("Welcome, \(user.username)")
                 .font(.headline)
-                .foregroundStyle(.secondary)
-
-            Text("Access and monitor your security system")
-                .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
     }

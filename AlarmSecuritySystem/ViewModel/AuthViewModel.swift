@@ -48,6 +48,12 @@ class AuthViewModel {
                 "isBlocked": false,
                 "createdAt": Timestamp()
             ])
+            FirestoreService.shared.addNotification(
+                receiverUid: "",
+                roleTarget: "admin",
+                type: "pending user approval",
+                message: "New user \(username) is waiting for approval"
+            ) { _ in }
 
             currentUserId = uid
             await fetchCurrentUser()
@@ -63,6 +69,16 @@ class AuthViewModel {
         } catch {
             errorMessage = error.localizedDescription
             return false
+        }
+    }
+    
+    func loadCurrentSession() async {
+        if let user = auth.currentUser {
+            currentUserId = user.uid
+            await fetchCurrentUser()
+        } else {
+            currentUserId = nil
+            currentUser = nil
         }
     }
 
@@ -158,11 +174,25 @@ class AuthViewModel {
     }
 
     func fetchCurrentUser() async {
-        guard let uid = currentUserId else { return }
+        guard let uid = currentUserId else {
+            errorMessage = "Missing user ID."
+            return
+        }
 
         do {
             let document = try await db.collection("users").document(uid).getDocument()
-            guard let data = document.data() else { return }
+
+            guard document.exists else {
+                errorMessage = "User document not found in Firestore."
+                currentUser = nil
+                return
+            }
+
+            guard let data = document.data() else {
+                errorMessage = "User data is empty."
+                currentUser = nil
+                return
+            }
 
             currentUser = FirebaseUser(
                 id: uid,
@@ -172,8 +202,12 @@ class AuthViewModel {
                 isApproved: data["isApproved"] as? Bool ?? false,
                 isBlocked: data["isBlocked"] as? Bool ?? false
             )
+
+            errorMessage = ""
+
         } catch {
             errorMessage = error.localizedDescription
+            currentUser = nil
         }
     }
 }

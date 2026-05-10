@@ -30,6 +30,27 @@ final class NotificationsViewModel {
             }
         }
     }
+    
+    func startListeningForAdmin() {
+        isLoading = true
+        errorMessage = ""
+
+        listener?.remove()
+
+        listener = FirestoreService.shared.listenForAdminNotifications { result in
+            DispatchQueue.main.async {
+                self.isLoading = false
+
+                switch result {
+                case .success(let notifications):
+                    self.notifications = notifications
+
+                case .failure(let error):
+                    self.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
 
     func stopListening() {
         listener?.remove()

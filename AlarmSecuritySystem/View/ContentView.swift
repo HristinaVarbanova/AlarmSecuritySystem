@@ -7,6 +7,7 @@ struct ContentView: View {
         Group {
             if authViewModel.currentUserId == nil {
                 AnimatedAuthView(viewModel: authViewModel)
+
             } else if let user = authViewModel.currentUser {
                 if !user.isApproved {
                     PendingApprovalView(viewModel: authViewModel)
@@ -15,9 +16,13 @@ struct ContentView: View {
                 } else {
                     UserDashboardView(user: user, viewModel: authViewModel)
                 }
+
             } else {
                 ProgressView("Loading user data...")
             }
+        }
+        .task {
+            await authViewModel.loadCurrentSession()
         }
     }
 }
