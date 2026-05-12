@@ -30,9 +30,11 @@ final class UserManagementViewModel {
         userId: String,
         isApproved: Bool,
         isBlocked: Bool,
-        actionType: String,
+        type: String,
         adminUsername: String
     ) {
+        let targetUsername = users.first(where: { $0.id == userId })?.username ?? "Unknown"
+
         FirestoreService.shared.updateUserStatus(
             userId: userId,
             isApproved: isApproved,
@@ -42,13 +44,9 @@ final class UserManagementViewModel {
                 switch result {
                 case .success:
                     self.addAdminEventLog(
-                        actionType: actionType,
-                        adminUsername: adminUsername
-                    )
-
-                    self.addUserNotificationIfNeeded(
-                        userId: userId,
-                        actionType: actionType
+                        type: type,
+                        adminUsername: adminUsername,
+                        targetUsername: targetUsername
                     )
 
                     self.loadUsers()
@@ -61,39 +59,30 @@ final class UserManagementViewModel {
     }
 
     private func addAdminEventLog(
-        actionType: String,
-        adminUsername: String
+        type: String,
+        adminUsername: String,
+        targetUsername: String
     ) {
-        FirestoreService.shared.addEventLog(
-            type: actionType,
-            message: "\(adminUsername) changed user status",
-            performedByUsername: adminUsername
-        ) { _ in }
-    }
+        let message: String
 
-    private func addUserNotificationIfNeeded(
-        userId: String,
-        actionType: String
-    ) {
-        switch actionType {
-        case "BLOCK_USER":
-            FirestoreService.shared.addNotification(
-                receiverUid: userId,
-                roleTarget: "user",
-                type: "User blocked",
-                message: "Your account has been blocked"
-            ) { _ in }
+        switch type {
+        case EventLogType.approveUser.rawValue:
+            message = "\(adminUsername) approved user \(targetUsername)"
 
-        case "UNBLOCK_USER":
-            FirestoreService.shared.addNotification(
-                receiverUid: userId,
-                roleTarget: "user",
-                type: "User unblocked",
-                message: "Your account has been unblocked"
-            ) { _ in }
+        case EventLogType.blockUser.rawValue:
+            message = "\(adminUsername) blocked user \(targetUsername)"
+
+        case EventLogType.unblockUser.rawValue:
+            message = "\(adminUsername) unblocked user \(targetUsername)"
 
         default:
-            break
+            message = "\(adminUsername) updated user \(targetUsername)"
         }
+
+        FirestoreService.shared.addEventLog(
+            type: type,
+            message: message,
+            performedByUsername: adminUsername
+        ) { _ in }
     }
 }

@@ -22,7 +22,7 @@ class AuthViewModel {
             let username = currentUser?.username ?? "Unknown"
 
             FirestoreService.shared.addEventLog(
-                type: "USER_LOGIN",
+                type: EventLogType.userLogin.rawValue,
                 message: "\(username) logged into the system",
                 performedByUsername: username
             ) { _ in }
@@ -48,18 +48,11 @@ class AuthViewModel {
                 "isBlocked": false,
                 "createdAt": Timestamp()
             ])
-            FirestoreService.shared.addNotification(
-                receiverUid: "",
-                roleTarget: "admin",
-                type: "pending user approval",
-                message: "New user \(username) is waiting for approval"
-            ) { _ in }
-
             currentUserId = uid
             await fetchCurrentUser()
 
             FirestoreService.shared.addEventLog(
-                type: "USER_REGISTERED",
+                type: EventLogType.userRegistered.rawValue,
                 message: "\(username) created a new account",
                 performedByUsername: username
             ) { _ in }
@@ -105,7 +98,7 @@ class AuthViewModel {
             }
 
             FirestoreService.shared.addEventLog(
-                type: "UPDATE_PROFILE",
+                type: EventLogType.unblockUser.rawValue,
                 message: "\(newUsername) updated username",
                 performedByUsername: newUsername
             ) { _ in }
@@ -146,7 +139,7 @@ class AuthViewModel {
 
             let username = currentUser?.username ?? "Unknown"
             FirestoreService.shared.addEventLog(
-                type: "UPDATE_PROFILE",
+                type: EventLogType.updateProfile.rawValue,
                 message: "\(username) updated password",
                 performedByUsername: username
             ) { _ in }
@@ -163,7 +156,7 @@ class AuthViewModel {
         let username = currentUser?.username ?? "Unknown"
 
         FirestoreService.shared.addEventLog(
-            type: "USER_LOGOUT",
+            type: EventLogType.userLogout.rawValue,
             message: "\(username) logged out",
             performedByUsername: username
         ) { _ in }

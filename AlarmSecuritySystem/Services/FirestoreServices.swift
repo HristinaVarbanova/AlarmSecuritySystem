@@ -77,103 +77,7 @@ final class FirestoreService {
                 }
             }
     }
-    func addNotification(
-        receiverUid: String,
-        roleTarget: String,
-        type: String,
-        message: String,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        db.collection("notifications")
-            .addDocument(data: [
-                "receiverUid": receiverUid,
-                "roleTarget": roleTarget,
-                "type": type,
-                "message": message,
-                "createdAt": Timestamp(),
-                "isRead": false
-            ]) { error in
-                if let error = error {
-                    completion(.failure(error))
-                } else {
-                    completion(.success(()))
-                }
-            }
-    }
-
-    func fetchNotifications(
-        for userId: String,
-        completion: @escaping (Result<[AppNotification], Error>) -> Void
-    ) {
-        db.collection("notifications")
-            .whereField("receiverUid", isEqualTo: userId)
-            .order(by: "createdAt", descending: true)
-            .getDocuments { snapshot, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-
-                let notifications = snapshot?.documents.map { document in
-                    AppNotification(id: document.documentID, data: document.data())
-                } ?? []
-
-                completion(.success(notifications))
-            }
-    }
     
-    func listenForNotifications(
-        for userId: String,
-        completion: @escaping (Result<[AppNotification], Error>) -> Void
-    ) -> ListenerRegistration {
-        return db.collection("notifications")
-            .whereField("receiverUid", isEqualTo: userId)
-            .addSnapshotListener { snapshot, error in
-                if let error = error {
-                    print("Notifications listener error:", error.localizedDescription)
-                    completion(.failure(error))
-                    return
-                }
-
-                let notifications = snapshot?.documents.map { document in
-                    AppNotification(
-                        id: document.documentID,
-                        data: document.data()
-                    )
-                } ?? []
-
-                let sortedNotifications = notifications.sorted {
-                    $0.createdAt > $1.createdAt
-                }
-
-                print("Notifications count:", sortedNotifications.count)
-
-                completion(.success(sortedNotifications))
-            }
-    }
-    
-    func fetchAdminNotifications(
-        completion: @escaping (Result<[AppNotification], Error>) -> Void
-    ) {
-        db.collection("notifications")
-            .whereField("roleTarget", isEqualTo: "admin")
-            .getDocuments { snapshot, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-
-                let notifications = snapshot?.documents.map { document in
-                    AppNotification(id: document.documentID, data: document.data())
-                } ?? []
-
-                let sortedNotifications = notifications.sorted {
-                    $0.createdAt > $1.createdAt
-                }
-
-                completion(.success(sortedNotifications))
-            }
-    }
     
     func incrementFailedAccessAttempts(
         completion: @escaping (Result<Int, Error>) -> Void
@@ -220,29 +124,6 @@ final class FirestoreService {
                 } else {
                     completion(.success(()))
                 }
-            }
-    }
-    
-    func listenForAdminNotifications(
-        completion: @escaping (Result<[AppNotification], Error>) -> Void
-    ) -> ListenerRegistration {
-        return db.collection("notifications")
-            .whereField("roleTarget", isEqualTo: "admin")
-            .addSnapshotListener { snapshot, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-
-                let notifications = snapshot?.documents.map { document in
-                    AppNotification(id: document.documentID, data: document.data())
-                } ?? []
-
-                let sortedNotifications = notifications.sorted {
-                    $0.createdAt > $1.createdAt
-                }
-
-                completion(.success(sortedNotifications))
             }
     }
     

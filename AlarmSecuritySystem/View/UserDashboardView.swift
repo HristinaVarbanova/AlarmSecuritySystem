@@ -13,6 +13,17 @@ struct UserDashboardView: View {
                     VStack(alignment: .leading, spacing: 22) {
                         header
 
+                        if user.isBlocked {
+                            Text("Your account is blocked. Only notifications are available.")
+                                .font(.subheadline)
+                                .foregroundStyle(.red)
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.red.opacity(0.10))
+                                .clipShape(RoundedRectangle(cornerRadius: 16))
+                        }
+
                         DashboardSectionTitle(title: "My Security Access")
 
                         LazyVGrid(columns: [
@@ -61,17 +72,6 @@ struct UserDashboardView: View {
                             .disabled(user.isBlocked)
                             .opacity(user.isBlocked ? 0.4 : 1)
                             
-                            NavigationLink {
-                                NotificationsView(user: user, isAdminMode: false)
-                            } label: {
-                                DashboardCard(
-                                    title: "Notifications",
-                                    subtitle: "Personal alerts",
-                                    icon: "bell.fill",
-                                    color: .blue
-                                )
-                            }
-                            .buttonStyle(.plain)
 
                             NavigationLink {
                                 ProfileView(user: user, viewModel: viewModel)

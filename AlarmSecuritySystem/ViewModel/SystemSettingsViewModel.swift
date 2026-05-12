@@ -74,7 +74,7 @@ final class SystemSettingsViewModel {
                     self.systemPin = ""
 
                     FirestoreService.shared.addEventLog(
-                        type: "UPDATE_SYSTEM_SETTINGS",
+                        type: EventLogType.updateSystemSettings.rawValue,
                         message: "\(adminUsername) updated system settings",
                         performedByUsername: adminUsername
                     ) { _ in }

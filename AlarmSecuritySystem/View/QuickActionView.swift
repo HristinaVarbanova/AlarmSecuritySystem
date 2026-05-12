@@ -132,7 +132,7 @@ struct QuickActionsView: View {
                 ) { _ in }
 
                 FirestoreService.shared.addEventLog(
-                    type: "ARM",
+                    type: EventLogType.arm.rawValue,
                     message: "\(user.username) armed the system",
                     performedByUsername: user.username
                 ) { _ in }
@@ -166,7 +166,7 @@ struct QuickActionsView: View {
                 ) { _ in }
 
                 FirestoreService.shared.addEventLog(
-                    type: "DISARM",
+                    type: EventLogType.disarm.rawValue,
                     message: "\(user.username) disarmed the system",
                     performedByUsername: user.username
                 ) { _ in }

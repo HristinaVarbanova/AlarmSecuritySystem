@@ -91,18 +91,6 @@ struct AdminDashboardView: View {
                             .buttonStyle(.plain)
 
                             NavigationLink {
-                                NotificationsView(user: user, isAdminMode: true)
-                            } label: {
-                                DashboardCard(
-                                    title: "Notifications",
-                                    subtitle: "Security alerts",
-                                    icon: "bell.badge.fill",
-                                    color: .blue
-                                )
-                            }
-                            .buttonStyle(.plain)
-
-                            NavigationLink {
                                 ProfileView(user: user, viewModel: viewModel)
                             } label: {
                                 DashboardCard(

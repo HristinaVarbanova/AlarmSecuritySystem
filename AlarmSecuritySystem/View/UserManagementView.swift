@@ -4,6 +4,10 @@ struct UserManagementView: View {
     let adminUser: FirebaseUser
     @State private var viewModel = UserManagementViewModel()
 
+    private var visibleUsers: [FirebaseUser] {
+        viewModel.users.filter { $0.id != adminUser.id }
+    }
+
     var body: some View {
         ZStack {
             backgroundGradient
@@ -14,46 +18,44 @@ struct UserManagementView: View {
                 if viewModel.isLoading {
                     ProgressView("Loading users...")
                         .padding(.top, 40)
-                } else if viewModel.users.isEmpty {
+                } else if visibleUsers.isEmpty {
                     Text("No users found.")
                         .foregroundStyle(.secondary)
                         .padding(.top, 40)
                 } else {
                     ScrollView {
                         VStack(spacing: 14) {
-                            ForEach(viewModel.users, id: \.id) { user in
-                                if user.id != adminUser.id {
-                                    UserManagementCard(
-                                        user: user,
-                                        onApprove: {
-                                            viewModel.updateUser(
-                                                userId: user.id,
-                                                isApproved: true,
-                                                isBlocked: user.isBlocked,
-                                                actionType: "APPROVE_USER",
-                                                adminUsername: adminUser.username
-                                            )
-                                        },
-                                        onBlock: {
-                                            viewModel.updateUser(
-                                                userId: user.id,
-                                                isApproved: user.isApproved,
-                                                isBlocked: true,
-                                                actionType: "BLOCK_USER",
-                                                adminUsername: adminUser.username
-                                            )
-                                        },
-                                        onUnblock: {
-                                            viewModel.updateUser(
-                                                userId: user.id,
-                                                isApproved: user.isApproved,
-                                                isBlocked: false,
-                                                actionType: "UNBLOCK_USER",
-                                                adminUsername: adminUser.username
-                                            )
-                                        }
-                                    )
-                                }
+                            ForEach(visibleUsers, id: \.id) { user in
+                                UserManagementCard(
+                                    user: user,
+                                    onApprove: {
+                                        viewModel.updateUser(
+                                            userId: user.id,
+                                            isApproved: true,
+                                            isBlocked: user.isBlocked,
+                                            type: EventLogType.approveUser.rawValue,
+                                            adminUsername: adminUser.username
+                                        )
+                                    },
+                                    onBlock: {
+                                        viewModel.updateUser(
+                                            userId: user.id,
+                                            isApproved: user.isApproved,
+                                            isBlocked: true,
+                                            type: EventLogType.blockUser.rawValue,
+                                            adminUsername: adminUser.username
+                                        )
+                                    },
+                                    onUnblock: {
+                                        viewModel.updateUser(
+                                            userId: user.id,
+                                            isApproved: user.isApproved,
+                                            isBlocked: false,
+                                            type: EventLogType.unblockUser.rawValue,
+                                            adminUsername: adminUser.username
+                                        )
+                                    }
+                                )
                             }
                         }
                         .padding(.vertical, 8)
@@ -105,7 +107,6 @@ struct UserManagementView: View {
         )
         .ignoresSafeArea()
     }
-
 }
 
 struct UserManagementCard: View {
@@ -200,6 +201,33 @@ struct UserManagementCard: View {
             .clipShape(Capsule())
     }
 }
+private func addAdminEventLog(
+    type: String,
+    adminUsername: String,
+    targetUsername: String
+) {
+    let message: String
+
+    switch type {
+    case EventLogType.approveUser.rawValue:
+        message = "\(adminUsername) approved user \(targetUsername)"
+
+    case EventLogType.blockUser.rawValue:
+        message = "\(adminUsername) blocked user \(targetUsername)"
+
+    case EventLogType.unblockUser.rawValue:
+        message = "\(adminUsername) unblocked user \(targetUsername)"
+
+    default:
+        message = "\(adminUsername) updated user \(targetUsername)"
+    }
+
+    FirestoreService.shared.addEventLog(
+        type: type,
+        message: message,
+        performedByUsername: adminUsername
+    ) { _ in }
+}
 
 struct AdminSmallButtonStyle: ButtonStyle {
     let colors: [Color]
@@ -221,4 +249,4 @@ struct AdminSmallButtonStyle: ButtonStyle {
             .clipShape(Capsule())
             .opacity(configuration.isPressed ? 0.75 : 1)
     }
-}   
+}
